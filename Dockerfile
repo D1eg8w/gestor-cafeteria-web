@@ -1,5 +1,11 @@
 FROM tomcat:9.0-jdk11
 
+# Instalar fuentes de Microsoft (incluye Arial)
+RUN apt-get update && \
+    apt-get install -y fontconfig fonts-liberation ttf-mscorefonts-installer && \
+    fc-cache -f -v && \
+    rm -rf /var/lib/apt/lists/*
+
 # Eliminar aplicaciones por defecto
 RUN rm -rf /usr/local/tomcat/webapps/*
 
