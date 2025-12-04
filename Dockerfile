@@ -1,8 +1,15 @@
 FROM tomcat:9.0-jdk11
 
-# Instalar fuentes de Microsoft (incluye Arial)
+# Instalar fuentes completas de Microsoft y otras
 RUN apt-get update && \
-    apt-get install -y fontconfig fonts-liberation ttf-mscorefonts-installer && \
+    echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | debconf-set-selections && \
+    apt-get install -y --no-install-recommends \
+    fontconfig \
+    fonts-liberation \
+    fonts-dejavu \
+    fonts-freefont-ttf \
+    ttf-mscorefonts-installer \
+    cabextract && \
     fc-cache -f -v && \
     rm -rf /var/lib/apt/lists/*
 
